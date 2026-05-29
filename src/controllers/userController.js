@@ -1,6 +1,9 @@
 import userService from "../services/userService";
 
 let handleLogin = async (req, res) => {
+
+    console.log('REQ BODY = ', req.body);
+
     let email = req.body.email;
     let password = req.body.password;
 

@@ -1,15 +1,21 @@
+import cors from 'cors';
 import express from "express";
 import bodyParser from "body-parser";
 import viewEngine from "./config/viewEngine";
 import initwebRoutes from "./route/web";
 import connectDB from "./config/connectDB";
 
-require("dotenv").config(); 
+require("dotenv").config();
 
 let app = express();
 
-// config app
+// config cors
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
 
+// config app
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
