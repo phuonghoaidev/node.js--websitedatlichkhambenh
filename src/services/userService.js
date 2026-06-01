@@ -110,29 +110,29 @@ let createNewUser = (data) => {
         try {
             //chec email
             let check = await checkUserEmail(data.email);
-            if (check == true) {
+            if (check === true) {
                 return resolve({
                     errCode: 1,
-                    message: 'Email đã được sử dụng , hãy sử dụng email khác!'
+                    errMessage: 'Email đã được sử dụng , hãy sử dụng email khác!'
+                })
+            } else {
+                let hashPasswordFromBcrypt = await hashUserPassword(data.password);
+                await db.User.create({
+                    email: data.email,
+                    password: hashPasswordFromBcrypt,
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    address: data.address,
+                    phonenumber: data.phonenumber,
+                    gender: data.gender === '1' ? true : false,
+                    roleId: data.roleId,
+                })
+
+                resolve({
+                    errCode: 0,
+                    message: 'OK'
                 })
             }
-
-            let hashPasswordFromBcrypt = await hashUserPassword(data.password);
-            await db.User.create({
-                email: data.email,
-                password: hashPasswordFromBcrypt,
-                firstName: data.firstName,
-                lastName: data.lastName,
-                address: data.address,
-                phonenumber: data.phonenumber,
-                gender: data.gender === '1' ? true : false,
-                roleId: data.roleId,
-            })
-
-            resolve({
-                errCode: 0,
-                message: 'OK'
-            })
         } catch (e) {
             reject(e);
         }
