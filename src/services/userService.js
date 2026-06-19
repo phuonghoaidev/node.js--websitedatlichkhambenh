@@ -1,4 +1,5 @@
 
+import { where } from "sequelize";
 import db from "../models/index";
 import bcrypt from 'bcrypt';
 
@@ -206,10 +207,35 @@ let updateUserData = (data) => {
         }
     })
 }
+
+let getAllCodeService = (typeInput) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!typeInput) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameters !'
+                })
+            } else {
+                let res = {};
+                let allcode = await db.Allcode.findAll({
+                    where: { type: typeInput }
+                });
+                res.errCode = 0;
+                res.data = allcode;
+                resolve(res);
+            }
+
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
 module.exports = {
     handlUserLogin: handlUserLogin,
     GetAllUsers: GetAllUsers,
     createNewUser: createNewUser,
     deleteUser: deleteUser,
-    updateUserData: updateUserData
+    updateUserData: updateUserData,
+    getAllCodeService: getAllCodeService
 }
