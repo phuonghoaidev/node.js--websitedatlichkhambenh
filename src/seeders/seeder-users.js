@@ -6,10 +6,12 @@ module.exports = {
       {
         email: 'admin@gmail.com',
         password: '123456',
+        roleId: 'R2',
+        positionId: 'P0',
         firstName: 'HoiDanIt',
         lastName: 'Eric',
         address: 'USA',
-        gender: 1,
+        gender: 'M',
         createdAt: new Date(),
         updatedAt: new Date()
       },
