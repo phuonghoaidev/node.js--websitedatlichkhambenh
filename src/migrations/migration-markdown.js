@@ -16,15 +16,15 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.TEXT('long')
             },
-            cdescription: {
+            description: {
                 allowNull: true,
                 type: Sequelize.TEXT('long')
             },
-              cdoctorId: {
+              doctorId: {
                 allowNull: true,
                 type: Sequelize.INTEGER
             },
-             cspecialtyId: {
+             specialtyId: {
                 allowNull: true,
                 type: Sequelize.INTEGER
             },
@@ -32,7 +32,6 @@ module.exports = {
                 allowNull: true,
                 type: Sequelize.INTEGER
             },
-
 
             createdAt: {
                 allowNull: false,
