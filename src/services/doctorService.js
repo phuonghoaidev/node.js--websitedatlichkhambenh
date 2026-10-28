@@ -1,7 +1,7 @@
 import { where } from "sequelize";
 import db from "../models/index";
 require('dotenv').config();
-import _, { reject } from 'lodash';
+import _ from 'lodash';
 import { raw } from "body-parser";
 
 
@@ -66,13 +66,17 @@ let saveDetailInforDoctor = (inputData) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (!inputData.doctorId || !inputData.contentHTML || !inputData.contentMarkdown
-                || !inputData.action) {
+                || !inputData.action || !inputData.selectedPrice || !inputData.selectedPayment ||
+                !inputData.selectedProvince || !inputData.nameClinic || !inputData.addressClinic
+            ) {
 
                 resolve({
                     errCode: 1,
                     errMessage: 'Missing parameter'
                 })
             } else {
+
+                //upsert to makdown
                 if (inputData.action === 'CREATE') {
                     await db.Markdown.create({
                         contentHTML: inputData.contentHTML,
@@ -93,6 +97,36 @@ let saveDetailInforDoctor = (inputData) => {
                         doctorMarkdown.updateAt = new Date();
                         await doctorMarkdown.save()
                     }
+                }
+
+                //upsert to Doctor_infor table
+                let doctorInfor = await db.Doctor_Infor.findOne({
+                    where: {
+                        doctorId: inputData.doctorId,
+                    },
+                    raw: false
+                })
+                if (doctorInfor) {
+                    //update
+                    doctorInfor.doctorId = inputData.doctorId;
+                    doctorInfor.priceId = inputData.selectedPrice;
+                    doctorInfor.provinceId = inputData.selectedProvince;
+                    doctorInfor.paymentId = inputData.selectedPayment;
+                    doctorInfor.nameClinic = inputData.nameClinic;
+                    doctorInfor.addressClinic = inputData.addressClinic;
+                    doctorInfor.note = inputData.note;
+                    await doctorInfor.save()
+                } else {
+                    //create
+                    await db.Doctor_Infor.create({
+                        doctorId: inputData.doctorId,
+                        priceId: inputData.selectedPrice,
+                        provinceId: inputData.selectedProvince,
+                        paymentId: inputData.selectedPayment,
+                        nameClinic: inputData.nameClinic,
+                        addressClinic: inputData.addressClinic,
+                        note: inputData.note,
+                    })
                 }
 
 

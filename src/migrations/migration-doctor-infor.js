@@ -31,9 +31,10 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            ameClinic: {
+            nameClinic: {
                 type: Sequelize.STRING,
                 allowNull: false,
+
             },
             note: {
                 type: Sequelize.STRING,

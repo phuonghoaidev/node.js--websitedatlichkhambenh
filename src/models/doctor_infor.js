@@ -25,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         sequelize,
         modelName: 'Doctor_Infor',
+        // Migration creates the table as `doctor-infor`.
+        tableName: 'doctor-infor',
+        freezeTableName: true
     });
     return Doctor_Infor;
 };
