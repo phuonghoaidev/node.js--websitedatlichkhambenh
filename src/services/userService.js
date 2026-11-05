@@ -189,10 +189,10 @@ let updateUserData = (data) => {
                 user.positionId = data.positionId;
                 user.gender = data.gender;
                 user.phonenumber = data.phonenumber;
-                if(data.avatar){
+                if (data.avatar) {
                     user.image = data.avatar;
                 }
-       
+
 
                 await user.save();
                 // await db.User.save(
