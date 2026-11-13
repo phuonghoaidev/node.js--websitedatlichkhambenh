@@ -39,11 +39,11 @@ let initwebRoutes = (app) => {
 
     router.post('/api/create-new-specialty', specialtyController.createSpecialty);
     router.get('/api/get-specialty', specialtyController.getAllSpecialty);
-    router.get('/api/get-detail-specialty-bt-id', specialtyController.getDetailSpecialtyById);
+    router.get('/api/get-detail-specialty-by-id', specialtyController.getDetailSpecialtyById);
 
     router.post('/api/create-new-clinic', clinicController.createClinic);
-    // router.get('/api/get-specialty', specialtyController.getAllSpecialty);
-    // router.get('/api/get-detail-specialty-bt-id', specialtyController.getDetailSpecialtyById);
+    router.get('/api/get-clinic', clinicController.getAllClinic);
+    router.get('/api/get-detail-clinic-by-id', clinicController.getDetailClinicById);
 
 
 
